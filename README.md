@@ -49,5 +49,5 @@ LiMaoIM.getInstance().getLiMCMDManager().addCmdListener("listener_key", new ICMD
 ## 更多文档信息点击这里
 
 ## 案例
-[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://49.235.106.135:9000/minio/screenshot/android/1622454554391929.mp4)
+[![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://49.235.106.135:9000/screenshot/android/1622454554391929.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20210531%2F%2Fs3%2Faws4_request&X-Amz-Date=20210531T101025Z&X-Amz-Expires=432000&X-Amz-SignedHeaders=host&X-Amz-Signature=801ae842ac8592b9ca40f19436708317e2603dde6368f7db140ea02ec30018e3)
 
