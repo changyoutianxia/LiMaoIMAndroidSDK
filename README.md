@@ -60,4 +60,6 @@ LiMaoIM.getInstance().getLiMCMDManager().addCmdListener("listener_key", new ICMD
 
 <img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/redpacket.gif" width="400" height="400" alt="红包消息"/>
 
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/transfer.gif" width="400" height="400" alt="转账消息"/>
+
 
