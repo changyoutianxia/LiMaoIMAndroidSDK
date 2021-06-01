@@ -54,6 +54,8 @@ LiMaoIM.getInstance().getLiMCMDManager().addCmdListener("listener_key", new ICMD
 ## 案例
 <img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/receive_and_send.gif" width="400" height="400" alt="收发消息演示"/>
 
-<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/typing.gif" width="400" height="400" alt="收发消息演示"/>
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/typing.gif" width="400" height="400" alt="正在输入"/>
+
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/receipt.gif" width="400" height="400" alt="消息回执"/>
 
 
