@@ -49,7 +49,7 @@ LiMaoIM.getInstance().getLiMCMDManager().addCmdListener("listener_key", new ICMD
         });
 ```
 
-## 更多文档信息点击这里
+## [详细文档信息点击这里](http://limao.ai/docs/ "文档")
 
 ## 案例
 <img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/receive_and_send.gif" width="400" height="400" alt="收发消息演示"/>
@@ -58,8 +58,18 @@ LiMaoIM.getInstance().getLiMCMDManager().addCmdListener("listener_key", new ICMD
 
 <img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/receipt.gif" width="400" height="400" alt="消息回执"/>
 
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/msg_reaction.gif" width="400" height="400" alt="消息回应"/>
+
 <img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/redpacket.gif" width="400" height="400" alt="红包消息"/>
 
 <img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/transfer.gif" width="400" height="400" alt="转账消息"/>
+
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/group_manager.gif" width="400" height="400" alt="群管理"/>
+
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/dynamic.gif" width="400" height="400" alt="朋友圈"/>
+
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/p2pcall.gif" width="400" height="400" alt="单人音视频"/>
+
+<img src="https://raw.githubusercontent.com/lim-team/screenshot/master/android/multiplecall.gif" width="400" height="400" alt="多人音视频"/>
 
 
