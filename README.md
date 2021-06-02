@@ -17,10 +17,23 @@ LiMaoIM.getInstance().getLiMConnectionManager().sendMessage(new LiMTextContent("
 ```
 
 ## 监听
-
+***连接状态监听***
+```
+LiMaoIM.getInstance().getLiMConnectionManager().addOnConnectionStatusListener(new IConnectionStatus() {
+            @Override
+            public void onStatus(int status) {
+                // 0 失败
+                // 1 成功
+                // 2 被踢
+                // 3 同步消息中
+                // 4 连接中
+                // 5 无网络连接
+            }
+        });
+```
 ***发送消息结果监听***
 ```
-LiMaoIM.getInstance().getLiMMsgManager().addSendMsgAckListener("", new ISendACK() {
+LiMaoIM.getInstance().getLiMMsgManager().addSendMsgAckListener("listener_key", new ISendACK() {
             @Override
             public void msgACK(long clientSeq, String messageID, long messageSeq, byte reasonCode) {
                 // clientSeq 客户端序列号
