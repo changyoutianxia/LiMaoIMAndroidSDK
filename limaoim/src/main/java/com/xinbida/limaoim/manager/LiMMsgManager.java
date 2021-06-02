@@ -805,6 +805,12 @@ public class LiMMsgManager extends LiMBaseManager {
         }
     }
 
+    public void removeSendMsgAckListener(String key) {
+        if (!TextUtils.isEmpty(key) && sendAckListenerMap != null) {
+            sendAckListenerMap.remove(key);
+        }
+    }
+
     public void addOnUploadAttachListener(IUploadAttachmentListener iUploadAttachmentListener) {
         this.iUploadAttachmentListener = iUploadAttachmentListener;
     }
