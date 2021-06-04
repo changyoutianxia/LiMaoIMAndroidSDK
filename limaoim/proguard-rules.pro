@@ -19,3 +19,23 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+-dontwarn org.xsocket.**
+-keep class org.xsocket.** { *; }
+-keep class javax.ws.rs.** { *; }
+-keep class com.xinbida.limaoim.LiMaoIM {*;}
+-keep class com.xinbida.limaoim.protocol.LiMMessageContent {*;}
+-keep class com.xinbida.limaoim.message.type.LiMMsgContentType { *; }
+-keep class com.xinbida.limaoim.message.type.LiMChannelType { *; }
+-keep class com.xinbida.limaoim.message.type.LiMSendMsgResult { *; }
+-keep class com.xinbida.limaoim.message.type.LiMConnectStatus { *; }
+
+-keep class com.xinbida.limaoim.entity.* { *; }
+-keep class com.xinbida.limaoim.interfaces.** { *; }
+-keep class com.xinbida.limaoim.msgmodel.** { *; }
+-keep class com.xinbida.limaoim.manager.** { *; }
+-keep class org.whispersystems.curve25519.** { *; }
+-keepclassmembers class com.xinbida.limaoim.db.LiMDBHelper$DatabaseHelper {
+   public *;
+}

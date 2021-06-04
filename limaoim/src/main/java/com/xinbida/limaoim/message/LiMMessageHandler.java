@@ -80,7 +80,7 @@ public class LiMMessageHandler {
             bytes = MessageConvertHandler.getInstance().parseHeatBeatMsgToBytes((LiMPingMsg) msg);
         } else {
             // 其他消息
-            LiMLoggerUtils.getInstance().e("未识别的消息类型");
+            LiMLoggerUtils.getInstance().e("未知消息类型");
             return 1;
         }
 
