@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
             String uid = uidET.getText().toString();
             String token = tokenET.getText().toString();
             if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(token)) {
+                // 初始化im
                 LiMaoIM.getInstance().initIM(MainActivity.this, uid, token);
+                // 连接
                 LiMaoIM.getInstance().getLiMConnectionManager().connection();
             }
         });
@@ -52,11 +54,12 @@ public class MainActivity extends AppCompatActivity {
             String content = contentET.getText().toString();
             String uid = toUidET.getText().toString();
             if (!TextUtils.isEmpty(content) && !TextUtils.isEmpty(uid)) {
+                // 发送消息
                 LiMaoIM.getInstance().getLiMConnectionManager().sendMessage(new LiMTextContent(content), uid, LiMChannelType.PERSONAL);
             }
         });
 
-
+        // 连接状态监听
         LiMaoIM.getInstance().getLiMConnectionManager().addOnConnectionStatusListener(code -> {
             if (code == LiMConnectStatus.success) {
                 statusTv.setText("连接成功");
@@ -68,12 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 statusTv.setText("无网络");
             }
         });
+        // 新消息监听
         LiMaoIM.getInstance().getLiMMsgManager().addOnNewMsgListener("new_msg", liMMsgList -> {
             for (LiMMsg liMMsg : liMMsgList) {
                 adapter.addData(new UIMessageEntity(liMMsg));
             }
         });
+        // 监听发送消息入库返回
         LiMaoIM.getInstance().getLiMMsgManager().addOnSendMsgCallback("insert_msg", liMMsg -> adapter.addData(new UIMessageEntity(liMMsg)));
+        // 发送消息回执
         LiMaoIM.getInstance().getLiMMsgManager().addSendMsgAckListener("ack_key", (clientSeq, messageID, messageSeq, reasonCode) -> {
             for (int i = 0, size = adapter.getData().size(); i < size; i++) {
                 if (adapter.getData().get(i).liMMsg.clientSeq == clientSeq) {
@@ -88,7 +94,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // 断开连接
         LiMaoIM.getInstance().getLiMConnectionManager().disconnect(true);
+        // 取消监听
         LiMaoIM.getInstance().getLiMMsgManager().removeNewMsgListener("new_msg");
         LiMaoIM.getInstance().getLiMMsgManager().removeSendMsgCallBack("insert_msg");
         LiMaoIM.getInstance().getLiMMsgManager().removeSendMsgAckListener("ack_key");
