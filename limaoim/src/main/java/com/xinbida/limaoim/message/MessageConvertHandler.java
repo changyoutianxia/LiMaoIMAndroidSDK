@@ -1,7 +1,6 @@
 package com.xinbida.limaoim.message;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.xinbida.limaoim.LiMaoIM;
 import com.xinbida.limaoim.LiMaoIMApplication;
@@ -40,7 +39,7 @@ import java.nio.ByteOrder;
 
 /**
  * 5/21/21 11:28 AM
- * 消息转换
+ * 收发消息转换
  */
 class MessageConvertHandler {
     private MessageConvertHandler() {
@@ -54,7 +53,7 @@ class MessageConvertHandler {
         return MessageConvertHandlerBinder.msgConvert;
     }
 
-    byte[] parseConnectMsgToBytes(LiMConnectMsg liMConnectMsg) {
+    byte[] getConnectMsgBytes(LiMConnectMsg liMConnectMsg) {
         int remainingLength = 1 + 1
                 + liMConnectMsg.deviceIDLength
                 + liMConnectMsg.deviceID.length()
@@ -110,7 +109,7 @@ class MessageConvertHandler {
         return bytes;
     }
 
-    synchronized byte[] parseReceivedStatusMsgToBytes(LiMReceivedAckMsg liMReceiveAckMsg) {
+    synchronized byte[] getReceivedAckMsgBytes(LiMReceivedAckMsg liMReceiveAckMsg) {
         byte[] remainingBytes = LiMTypeUtils.getInstance().getRemainingLengthByte(8 + 4);
 
         int totalLen = 1 + remainingBytes.length + 8 + 4;
@@ -128,7 +127,7 @@ class MessageConvertHandler {
         return bytes;
     }
 
-    byte[] parseHeatBeatMsgToBytes(LiMPingMsg liMPingMsg) {
+    byte[] getPingMsgBytes(LiMPingMsg liMPingMsg) {
         int totalLen = 1;
         byte[] bytes = new byte[totalLen];
         ByteBuffer buffer = ByteBuffer.allocate(totalLen).order(
@@ -140,7 +139,7 @@ class MessageConvertHandler {
         return bytes;
     }
 
-    byte[] parseTalkSendMsgToBytes(LiMSendMsg liMSendMsg) {
+    byte[] getSendMsgBytes(LiMSendMsg liMSendMsg) {
         String sendContent = liMSendMsg.payload;
         String msgKeyContent = "";
         if (LiMaoIMApplication.getInstance().protocolVersion > 2) {
@@ -213,7 +212,7 @@ class MessageConvertHandler {
         return bytes;
     }
 
-    LiMBaseMsg cutBytesToMsgs(byte[] bytes) {
+    LiMBaseMsg cutBytesToMsg(byte[] bytes) {
         //包类型
         InputStream inputStream = new ByteArrayInputStream(bytes);
         byte[] fixedHeader = new byte[1];
@@ -237,10 +236,6 @@ class MessageConvertHandler {
                     read = inputStream.read(serverKeyByte);
                     if (read == -1) return liMConnectAckMsg;
                     String serverKey = LiMTypeUtils.getInstance().bytesToString(serverKeyByte);
-//                    if (TextUtils.isEmpty(serverKey)) {
-//                        Log.e("服务器解析的key为空....", "---->");
-//                        return liMConnectAckMsg;
-//                    }
                     // 获取安全码AES加密需要
                     byte[] saltLengthByte = new byte[2];
                     read = inputStream.read(saltLengthByte);
@@ -251,11 +246,6 @@ class MessageConvertHandler {
                     read = inputStream.read(saltByte);
                     if (read == -1) return liMConnectAckMsg;
                     String salt = LiMTypeUtils.getInstance().bytesToString(saltByte);
-//                    if (TextUtils.isEmpty(salt)) {
-//                        Log.e("解析的安全码为空", "----->");
-//                        return liMConnectAckMsg;
-//                    }
-
                     liMConnectAckMsg.serverKey = serverKey;
                     liMConnectAckMsg.salt = salt;
                     //保存公钥和安全码
@@ -266,7 +256,6 @@ class MessageConvertHandler {
                 byte[] length_byte = new byte[8];
                 read = inputStream.read(length_byte);
                 if (read == -1) {
-                    Log.e("读取时间后错误", "---");
                     return liMConnectAckMsg;
                 }
                 long time = BigTypeUtils.getInstance().bytesToLong(length_byte);
@@ -274,10 +263,8 @@ class MessageConvertHandler {
                 byte[] reasonByte = new byte[1];
                 read = inputStream.read(reasonByte);
                 if (read == -1) {
-                    Log.e("解析长度错误：", "---->");
                     return liMConnectAckMsg;
                 }
-
                 liMConnectAckMsg.timeDiff = time;
                 liMConnectAckMsg.remainingLength = remainingLength;
                 liMConnectAckMsg.reasonCode = reasonByte[0];
@@ -311,7 +298,6 @@ class MessageConvertHandler {
                 liMSendAckMsg.reasonCode = reasonCode[0];
                 return liMSendAckMsg;
             } else if (packetType == LiMMsgType.DISCONNECT) {
-                //被踢消息
                 LiMDisconnectMsg liMDisconnectMsg = new LiMDisconnectMsg();
                 byte[] reasonCode = new byte[1];
                 int read = inputStream.read(reasonCode);
@@ -323,7 +309,6 @@ class MessageConvertHandler {
                     if (read == -1) return liMDisconnectMsg;
                     liMDisconnectMsg.reason = LiMTypeUtils.getInstance().bytesToString(reasonByte);
                 }
-
                 return liMDisconnectMsg;
             } else if (packetType == LiMMsgType.RECVEIVED) {
                 //接受消息
@@ -435,8 +420,7 @@ class MessageConvertHandler {
                 }
                 return liMRecvMsg;
             } else if (packetType == LiMMsgType.PONG) {
-                //心跳ack
-                LiMLoggerUtils.getInstance().e("收到的Pong消息--->");
+                LiMLoggerUtils.getInstance().e("Pong消息--->");
                 return new LiMPongMsg();
             } else {
                 LiMLoggerUtils.getInstance().e("解析协议类型失败--->：" + packetType);

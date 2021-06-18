@@ -20,7 +20,7 @@ class LiMSqlContentValues {
      * @param liMMsg 会话消息
      * @return ContentValues
      */
-    static ContentValues getContentValuesByMsg(LiMMsg liMMsg) {
+    static ContentValues getContentValuesWithLiMMsg(LiMMsg liMMsg) {
         ContentValues contentValues = new ContentValues();
         if (liMMsg == null) {
             return contentValues;
@@ -74,7 +74,7 @@ class LiMSqlContentValues {
      * @param isUpdateStatus     是否编辑消息状态
      * @return ContentValues
      */
-    static ContentValues getContentValuesByLiMConverMsg(LiMConversationMsg liMConversationMsg, boolean isUpdateStatus) {
+    static ContentValues getContentValuesWithLiMCoverMsg(LiMConversationMsg liMConversationMsg, boolean isUpdateStatus) {
         ContentValues contentValues = new ContentValues();
         if (liMConversationMsg == null) {
             return contentValues;
@@ -114,7 +114,7 @@ class LiMSqlContentValues {
      * @param liMChannel 频道信息
      * @return ContentValues
      */
-    static ContentValues getContentValuesByLiMChannel(LiMChannel liMChannel) {
+    static ContentValues getContentValuesWithLiMChannel(LiMChannel liMChannel) {
         ContentValues contentValues = new ContentValues();
         if (liMChannel == null) {
             return contentValues;
@@ -161,7 +161,7 @@ class LiMSqlContentValues {
      * @param liMChannelMember 频道成员
      * @return ContentValues
      */
-    static ContentValues getContentValuesByLiMChannelMember(LiMChannelMember liMChannelMember) {
+    static ContentValues getContentValuesWithLiMChannelMember(LiMChannelMember liMChannelMember) {
         ContentValues contentValues = new ContentValues();
         if (liMChannelMember == null) {
             return contentValues;

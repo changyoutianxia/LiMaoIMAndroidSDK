@@ -49,6 +49,7 @@ public class LiMChannelManager extends LiMBaseManager {
     //监听刷新频道
     private ConcurrentHashMap<String, IRefreshChannel> refreshChannelMap;
 
+    // 检查消息中的频道
     public void checkChannelInfo(LiMMsg mMsg) {
         if (mMsg.type == LiMMsgContentType.LIM_INSIDE_MSG) return;
         LiMChannel channel = getLiMChannel(mMsg.channelID, mMsg.channelType);
@@ -109,6 +110,7 @@ public class LiMChannelManager extends LiMBaseManager {
         return liMChannel;
     }
 
+    // 从网络获取channel
     public void fetchChannelInfo(String channelID, byte channelType) {
         if (TextUtils.isEmpty(channelID)) return;
         getChannelInfo(channelID, channelType, liMChannel -> {
@@ -128,8 +130,8 @@ public class LiMChannelManager extends LiMBaseManager {
     }
 
     public void addOrUpdateChannel(LiMChannel liMChannel) {
-        //先更改内存数据
         if (liMChannel == null) return;
+        //先更改内存数据
         updateChannel(liMChannel);
         setRefreshChannel(liMChannel);
         LiMChannelDBManager.getInstance().insertOrUpdateChannel(liMChannel);
@@ -459,7 +461,7 @@ public class LiMChannelManager extends LiMBaseManager {
         }
     }
 
-
+    // 刷新频道
     public void setRefreshChannel(LiMChannel liMChannel) {
         if (refreshChannelMap != null) {
             runOnMainThread(() -> {
@@ -471,6 +473,7 @@ public class LiMChannelManager extends LiMBaseManager {
         }
     }
 
+    // 监听刷新普通
     public void addOnRefreshChannelInfo(String key, IRefreshChannel iRefreshChannelListener) {
         if (TextUtils.isEmpty(key)) return;
         if (refreshChannelMap == null) refreshChannelMap = new ConcurrentHashMap<>();
@@ -478,11 +481,7 @@ public class LiMChannelManager extends LiMBaseManager {
             refreshChannelMap.put(key, iRefreshChannelListener);
     }
 
-    /**
-     * 移除频道刷新监听
-     *
-     * @param key 标志
-     */
+    // 移除频道刷新监听
     public void removeRefreshChannelInfo(String key) {
         if (TextUtils.isEmpty(key) || refreshChannelMap == null) return;
         refreshChannelMap.remove(key);

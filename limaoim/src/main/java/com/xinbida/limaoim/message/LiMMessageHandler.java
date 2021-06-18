@@ -68,16 +68,16 @@ public class LiMMessageHandler {
         byte[] bytes;
         if (msg.packetType == LiMMsgType.CONNECT) {
             // 连接
-            bytes = MessageConvertHandler.getInstance().parseConnectMsgToBytes((LiMConnectMsg) msg);
+            bytes = MessageConvertHandler.getInstance().getConnectMsgBytes((LiMConnectMsg) msg);
         } else if (msg.packetType == LiMMsgType.REVACK) {
             // 收到消息回执
-            bytes = MessageConvertHandler.getInstance().parseReceivedStatusMsgToBytes((LiMReceivedAckMsg) msg);
+            bytes = MessageConvertHandler.getInstance().getReceivedAckMsgBytes((LiMReceivedAckMsg) msg);
         } else if (msg.packetType == LiMMsgType.SEND) {
             // 发送聊天消息
-            bytes = MessageConvertHandler.getInstance().parseTalkSendMsgToBytes((LiMSendMsg) msg);
+            bytes = MessageConvertHandler.getInstance().getSendMsgBytes((LiMSendMsg) msg);
         } else if (msg.packetType == LiMMsgType.PING) {
             // 发送心跳
-            bytes = MessageConvertHandler.getInstance().parseHeatBeatMsgToBytes((LiMPingMsg) msg);
+            bytes = MessageConvertHandler.getInstance().getPingMsgBytes((LiMPingMsg) msg);
         } else {
             // 其他消息
             LiMLoggerUtils.getInstance().e("未知消息类型");
@@ -206,7 +206,7 @@ public class LiMMessageHandler {
         // 字节数组转成消息数组
         if (bytes != null && bytes.length > 0) {
             LiMBaseMsg g_msg;
-            g_msg = MessageConvertHandler.getInstance().cutBytesToMsgs(bytes);
+            g_msg = MessageConvertHandler.getInstance().cutBytesToMsg(bytes);
             if (g_msg != null) {
                 //连接ack
                 if (g_msg.packetType == LiMMsgType.CONNACK) {

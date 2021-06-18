@@ -356,7 +356,7 @@ public class LiMMsgDbManager {
         }
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByMsg(msg);
+            cv = LiMSqlContentValues.getContentValuesWithLiMMsg(msg);
         } catch (Exception e) {
             e.printStackTrace();
         }

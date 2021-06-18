@@ -249,7 +249,7 @@ public class LiMConversationDbManager {
         return messageSeq;
     }
 
-    public synchronized boolean updateMsgCount(String channelId, byte channelType, int count) {
+    public synchronized void updateMsgCount(String channelId, byte channelType, int count) {
         ContentValues cv = new ContentValues();
         try {
             cv.put(LiMDBColumns.LiMCoverMessageColumns.unread_count, count);
@@ -262,17 +262,14 @@ public class LiMConversationDbManager {
         if (LiMaoIMApplication.getInstance().getDbHelper() != null) {
             boolean result = LiMaoIMApplication.getInstance().getDbHelper()
                     .update(LiMDBTables.chat_msg_conversation_tab, cv, LiMDBColumns.LiMCoverMessageColumns.channel_id + "=? and " + LiMDBColumns.LiMCoverMessageColumns.channel_type + "=?", update);
-
             if (result) {
                 LiMConversationMsg msg = queryLastLiMConversationMsg(channelId, channelType);
                 if (msg != null) {
                     Log.e("刷新最近会话", "updateMsgCount 565");
                     refreshMsg(msg, null);
                 }
-                return true;
-            } else return false;
-        } else
-            return false;
+            }
+        }
     }
 
     public synchronized void updateMsg(String channelID, byte channelType, List<String> fields, List<String> values) {
@@ -461,7 +458,7 @@ public class LiMConversationDbManager {
     public synchronized long insert(LiMConversationMsg msg) {
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByLiMConverMsg(msg, true);
+            cv = LiMSqlContentValues.getContentValuesWithLiMCoverMsg(msg, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -488,7 +485,7 @@ public class LiMConversationDbManager {
         update[1] = String.valueOf(msg.channelType);
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByLiMConverMsg(msg, isUpdateStatus);
+            cv = LiMSqlContentValues.getContentValuesWithLiMCoverMsg(msg, isUpdateStatus);
         } catch (Exception e) {
             e.printStackTrace();
         }

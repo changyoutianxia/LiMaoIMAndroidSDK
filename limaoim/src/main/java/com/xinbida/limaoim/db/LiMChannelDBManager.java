@@ -78,19 +78,16 @@ public class LiMChannelDBManager {
                     .getDbHelper()
                     .select(LiMDBTables.channel_tab, selection, selectionArgs,
                             null);
-
             if (cursor != null) {
                 if (cursor.getCount() > 0) {
                     cursor.moveToNext();
                     liMChannel = serializableChannel(cursor);
                 }
-
             }
         } finally {
             if (cursor != null)
                 cursor.close();
         }
-
         return liMChannel;
     }
 
@@ -106,7 +103,7 @@ public class LiMChannelDBManager {
     private synchronized void insertChannel(LiMChannel liMChannel) {
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByLiMChannel(liMChannel);
+            cv = LiMSqlContentValues.getContentValuesWithLiMChannel(liMChannel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,7 +117,7 @@ public class LiMChannelDBManager {
         update[1] = String.valueOf(liMChannel.channelType);
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByLiMChannel(liMChannel);
+            cv = LiMSqlContentValues.getContentValuesWithLiMChannel(liMChannel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,6 +125,7 @@ public class LiMChannelDBManager {
                 .update(LiMDBTables.channel_tab, cv, LiMDBColumns.LiMChannelColumns.channel_id + "=? and " + LiMDBColumns.LiMChannelColumns.channel_type + "=?", update);
 
     }
+
     /**
      * 查询频道
      *
@@ -151,6 +149,7 @@ public class LiMChannelDBManager {
         }
         return liMChannels;
     }
+
     /**
      * 查下指定频道类型和频道状态的频道
      *
@@ -253,6 +252,7 @@ public class LiMChannelDBManager {
         LiMaoIMApplication.getInstance().getDbHelper()
                 .update(LiMDBTables.channel_tab, updateKey, updateValue, where, whereValue);
     }
+
     public synchronized LiMChannel serializableChannel(Cursor cursor) {
         LiMChannel liMChannel = new LiMChannel();
         if (cursor.getColumnIndex(LiMDBColumns.LiMChannelColumns.id) >= 0)

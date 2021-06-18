@@ -86,7 +86,7 @@ public class LiMChannelMembersDbManager {
             return;
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByLiMChannelMember(liMChannelMember);
+            cv = LiMSqlContentValues.getContentValuesWithLiMChannelMember(liMChannelMember);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,7 +145,7 @@ public class LiMChannelMembersDbManager {
         update[2] = liMChannelMember.memberUID;
         ContentValues cv = new ContentValues();
         try {
-            cv = LiMSqlContentValues.getContentValuesByLiMChannelMember(liMChannelMember);
+            cv = LiMSqlContentValues.getContentValuesWithLiMChannelMember(liMChannelMember);
         } catch (Exception e) {
             e.printStackTrace();
         }
