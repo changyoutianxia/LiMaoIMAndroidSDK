@@ -3,7 +3,6 @@ package com.xinbida.limaoim.msgmodel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 import com.xinbida.limaoim.message.type.LiMMsgContentType;
 import com.xinbida.limaoim.protocol.LiMMessageContent;
 
@@ -20,6 +19,7 @@ public class LiMTextContent extends LiMMessageContent {
         this.type = LiMMsgContentType.LIMAO_TEXT;
     }
 
+    // 无参构造必须提供
     public LiMTextContent() {
         this.type = LiMMsgContentType.LIMAO_TEXT;
     }

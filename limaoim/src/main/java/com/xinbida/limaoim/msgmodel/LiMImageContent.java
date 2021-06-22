@@ -22,6 +22,7 @@ public class LiMImageContent extends LiMMediaMessageContent {
         this.type = LiMMsgContentType.LIMAO_IMAGE;
     }
 
+    // 无参构造必须提供
     public LiMImageContent() {
         this.type = LiMMsgContentType.LIMAO_IMAGE;
     }

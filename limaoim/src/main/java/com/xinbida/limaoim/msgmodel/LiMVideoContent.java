@@ -21,6 +21,7 @@ public class LiMVideoContent extends LiMMediaMessageContent {
     public int height;
     public long second;
 
+    // 无参构造必须提供
     public LiMVideoContent() {
         type = LiMMsgContentType.LIMAO_VIDEO;
     }

@@ -22,6 +22,7 @@ public class LiMVoiceContent extends LiMMediaMessageContent {
         this.localPath = localPath;
     }
 
+    // 无参构造必须提供
     public LiMVoiceContent() {
         this.type = LiMMsgContentType.LIMAO_VOICE;
     }
