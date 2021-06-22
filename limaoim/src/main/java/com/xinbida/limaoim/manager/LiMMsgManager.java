@@ -483,6 +483,10 @@ public class LiMMsgManager extends LiMBaseManager {
                 refreshType = 1;
             }
         }
+        if (liMMsg.orderSeq == 0) {
+            long tempOrderSeq = getMessageOrderSeq(0, liMMsg.channelID, liMMsg.channelType);
+            liMMsg.orderSeq = tempOrderSeq + 1;
+        }
         liMMsg.clientSeq = LiMMsgDbManager.getInstance().insertMsg(liMMsg);
         if (refreshType == 0)
             pushNewMsg(liMMsg);
@@ -569,6 +573,10 @@ public class LiMMsgManager extends LiMBaseManager {
             if (tempMsg != null) {
                 refreshType = 1;
             }
+        }
+        if (liMMsg.orderSeq == 0) {
+            long tempOrderSeq = getMessageOrderSeq(0, liMMsg.channelID, liMMsg.channelType);
+            liMMsg.orderSeq = tempOrderSeq + 1;
         }
         LiMMsgDbManager.getInstance().insertMsg(liMMsg);
         if (refreshType == 0)
