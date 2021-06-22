@@ -21,7 +21,6 @@ import javax.crypto.spec.SecretKeySpec;
  * 2/26/21 12:11 PM
  */
 public class LiMAESEncryptUtils {
-    private static final String TAG = LiMAESEncryptUtils.class.getSimpleName() + " --> ";
 
     /**
      * 加密算法

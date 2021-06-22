@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 /**
  * 2020-04-29 23:01
- * 视频消息
+ * 内置视频消息
  */
 public class LiMVideoContent extends LiMMediaMessageContent {
     public String cover;

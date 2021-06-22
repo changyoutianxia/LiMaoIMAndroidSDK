@@ -23,7 +23,7 @@ public class PushServiceConn {
     /**
      * service名称
      */
-    public static final String PUSH_SERVICE_NAME = "com.limao.im.limaoimlib.service.PushService";
+    public static final String PUSH_SERVICE_NAME = "com.xinbida.limaoim.service.PushService";
     private final Object sync = new Object();
     public IPushService pushService;
     public ServiceConnection mPushServiceConnection;

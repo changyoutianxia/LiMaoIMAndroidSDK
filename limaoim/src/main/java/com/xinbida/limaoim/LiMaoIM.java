@@ -35,10 +35,7 @@ public class LiMaoIM {
         return isDebug;
     }
 
-    public void initIM(Context context, String uid, String token) {
-        this.initIM(context, uid, token, false);
-    }
-
+    // debug模式会输出一些连接信息，发送消息情况等
     public void setDebug(boolean isDebug) {
         this.isDebug = isDebug;
     }
@@ -52,6 +49,19 @@ public class LiMaoIM {
         return isProcess;
     }
 
+
+    public void initIM(Context context, String uid, String token) {
+        this.initIM(context, uid, token, false);
+    }
+
+    /**
+     * 初始化IM
+     *
+     * @param context   context
+     * @param uid       用户ID
+     * @param token     im token
+     * @param isProcess 是否需要service进程。建议不需要，目前Android无法做到100%保活
+     */
     public void initIM(Context context, String uid, String token, boolean isProcess) {
         if (context == null || TextUtils.isEmpty(uid) || TextUtils.isEmpty(token)) {
             throw new NullPointerException("参数不能为空");

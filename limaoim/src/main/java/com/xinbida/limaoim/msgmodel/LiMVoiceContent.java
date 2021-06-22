@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 /**
  * 2020-04-04 10:45
- * 语音消息
+ * 内置语音消息model
  */
 public class LiMVoiceContent extends LiMMediaMessageContent {
     public int timeTrad;

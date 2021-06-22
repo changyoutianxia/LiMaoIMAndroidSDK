@@ -27,10 +27,10 @@ public class LiMFileUtils {
         return LiMFileUtilsBinder.limFileUtils;
     }
 
-    public boolean fileCopy(String oldFilePath, String newFilePath) {
+    public void fileCopy(String oldFilePath, String newFilePath) {
         //如果原文件不存在
         if (!fileExists(oldFilePath)) {
-            return false;
+            return;
         }
         //获得原文件流
         FileInputStream inputStream;
@@ -49,7 +49,6 @@ public class LiMFileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     private boolean fileExists(String filePath) {
@@ -85,6 +84,8 @@ public class LiMFileUtils {
 
     }
 
+    // 保存文件
+    // 文件保存目录按channel区分
     public String saveFile(String oldPath, String channelId, byte channelType, String fileName) {
         if (TextUtils.isEmpty(channelId) || TextUtils.isEmpty(oldPath)) return "";
         File f = new File(oldPath);

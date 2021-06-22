@@ -31,39 +31,23 @@ public class LiMDateUtils {
     }
 
 
-    /**
-     * 毫秒
-     *
-     * @return
-     */
+    // 毫秒
     public long getCurrentMills() {
         return System.currentTimeMillis();
     }
 
-    /**
-     * 秒
-     *
-     * @return long
-     */
+    // 秒
     public long getCurrentSeconds() {
         return (System.currentTimeMillis() / 1000);
     }
 
-    /**
-     * 小时
-     *
-     * @return int
-     */
+    // 小时
     public int getHour() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.HOUR);
     }
 
-    /**
-     * 分钟
-     *
-     * @return int
-     */
+    // 分钟
     public int getMinute() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.MINUTE);

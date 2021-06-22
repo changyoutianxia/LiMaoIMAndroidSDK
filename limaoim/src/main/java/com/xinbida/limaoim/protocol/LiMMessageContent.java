@@ -3,7 +3,6 @@ package com.xinbida.limaoim.protocol;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
 import com.xinbida.limaoim.entity.LiMMentionInfo;
 import com.xinbida.limaoim.msgmodel.LiMReply;
 
@@ -97,10 +96,12 @@ public class LiMMessageContent implements Parcelable {
         return this;
     }
 
+    // 搜索本类型消息的关键字
     public String getSearchableWord() {
         return content;
     }
 
+    // 需显示的文字
     public String getDisplayContent() {
         return displayContent;
     }

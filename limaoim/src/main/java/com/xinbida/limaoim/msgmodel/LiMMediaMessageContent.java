@@ -6,7 +6,7 @@ import com.xinbida.limaoim.protocol.LiMMessageContent;
 
 /**
  * 2020-04-04 10:39
- * 多媒体消息
+ * 多媒体消息。如果自定义消息带附件需继承该类
  */
 public abstract class LiMMediaMessageContent extends LiMMessageContent {
     public String localPath;//本地地址

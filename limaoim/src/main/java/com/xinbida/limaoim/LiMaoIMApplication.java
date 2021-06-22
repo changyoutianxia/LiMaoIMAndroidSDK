@@ -54,6 +54,7 @@ public class LiMaoIMApplication {
         return syncMsgMode;
     }
 
+    // 同步消息模式
     public void setSyncMsgMode(LiMSyncMsgMode mode) {
         this.syncMsgMode = mode;
     }
