@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 连接状态监听
-        LiMaoIM.getInstance().getLiMConnectionManager().addOnConnectionStatusListener(code -> {
+        LiMaoIM.getInstance().getLiMConnectionManager().addOnConnectionStatusListener("main_act", code -> {
             if (code == LiMConnectStatus.success) {
                 statusTv.setText("连接成功");
             } else if (code == LiMConnectStatus.fail) {
@@ -100,5 +100,6 @@ public class MainActivity extends AppCompatActivity {
         LiMaoIM.getInstance().getLiMMsgManager().removeNewMsgListener("new_msg");
         LiMaoIM.getInstance().getLiMMsgManager().removeSendMsgCallBack("insert_msg");
         LiMaoIM.getInstance().getLiMMsgManager().removeSendMsgAckListener("ack_key");
+        LiMaoIM.getInstance().getLiMConnectionManager().removeOnConnectionStatusListener("main_act");
     }
 }
