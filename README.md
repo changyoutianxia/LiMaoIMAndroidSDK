@@ -19,7 +19,7 @@ LiMaoIM.getInstance().getLiMConnectionManager().sendMessage(new LiMTextContent("
 ## 监听
 ***连接状态监听***
 ```
-LiMaoIM.getInstance().getLiMConnectionManager().addOnConnectionStatusListener(new IConnectionStatus() {
+LiMaoIM.getInstance().getLiMConnectionManager().addOnConnectionStatusListener("listener_key",new IConnectionStatus() {
             @Override
             public void onStatus(int status) {
                 // 0 失败

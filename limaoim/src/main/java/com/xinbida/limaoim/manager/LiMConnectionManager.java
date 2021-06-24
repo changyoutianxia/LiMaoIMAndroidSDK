@@ -1,6 +1,7 @@
 package com.xinbida.limaoim.manager;
 
 import android.os.RemoteException;
+import android.text.TextUtils;
 
 import com.xinbida.limaoim.LiMaoIM;
 import com.xinbida.limaoim.LiMaoIMApplication;
@@ -14,8 +15,8 @@ import com.xinbida.limaoim.message.LiMMessageHandler;
 import com.xinbida.limaoim.protocol.LiMMessageContent;
 import com.xinbida.limaoim.service.PushServiceConn;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 5/21/21 10:31 AM
@@ -36,7 +37,7 @@ public class LiMConnectionManager extends LiMBaseManager {
 
 
     private IGetIpAndPort iGetIpAndPort;
-    private List<IConnectionStatus> iConnectionStatusList;
+    private ConcurrentHashMap<String, IConnectionStatus> concurrentHashMap;
 
     // 连接
     public void connection() {
@@ -132,21 +133,26 @@ public class LiMConnectionManager extends LiMBaseManager {
     }
 
     public void setConnectionStatus(int status) {
-        if (iConnectionStatusList != null && iConnectionStatusList.size() > 0) {
+        if (concurrentHashMap != null && concurrentHashMap.size() > 0) {
             runOnMainThread(() -> {
-                for (int i = 0, size = iConnectionStatusList.size(); i < size; i++) {
-                    iConnectionStatusList.get(i).onStatus(status);
+                for (Map.Entry<String, IConnectionStatus> entry : concurrentHashMap.entrySet()) {
+                    entry.getValue().onStatus(status);
                 }
             });
         }
     }
 
     // 监听连接状态
-    public void addOnConnectionStatusListener(IConnectionStatus iConnectionStatus) {
-        if (iConnectionStatus == null) return;
-        if (iConnectionStatusList == null) iConnectionStatusList = new ArrayList<>();
-        iConnectionStatusList.add(iConnectionStatus);
+    public void addOnConnectionStatusListener(String key, IConnectionStatus iConnectionStatus) {
+        if (iConnectionStatus == null || TextUtils.isEmpty(key)) return;
+        if (concurrentHashMap == null) concurrentHashMap = new ConcurrentHashMap<>();
+        concurrentHashMap.put(key, iConnectionStatus);
     }
 
-
+    // 移除监听
+    public void removeOnConnectionStatusListener(String key) {
+        if (!TextUtils.isEmpty(key) && concurrentHashMap != null) {
+            concurrentHashMap.remove(key);
+        }
+    }
 }
