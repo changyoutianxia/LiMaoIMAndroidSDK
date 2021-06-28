@@ -28,5 +28,5 @@ public class LiMMsgContentType {
     //合并转发消息
     public static final int LIMAO_MULTIPLE_FORWARD = 11;
     //内部消息，无需存储到数据库
-    public static final int LIM_INSIDE_MSG = 99;
+    public static final int LIMAO_INSIDE_MSG = 99;
 }

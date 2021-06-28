@@ -357,7 +357,7 @@ public class LiMMessageHandler {
 
             //将要存库的最后一条消息更新到会话记录表
             if (list.get(i).no_persist == 0
-                    && list.get(i).liMMsg.type != LiMMsgContentType.LIM_INSIDE_MSG
+                    && list.get(i).liMMsg.type != LiMMsgContentType.LIMAO_INSIDE_MSG
                     && list.get(i).liMMsg.isDeleted == 0) {
                 lastMsg = list.get(i).liMMsg;
             }
@@ -447,7 +447,7 @@ public class LiMMessageHandler {
             return message;
         }
 
-        if (message.type == LiMMsgContentType.LIM_INSIDE_MSG) {
+        if (message.type == LiMMsgContentType.LIMAO_INSIDE_MSG) {
             LiMCMDManager.getInstance().handleCMD(json, message.channelID, message.channelType);
         }
         message.baseContentMsgModel = LiMaoIM.getInstance().getLiMMsgManager().getMsgContentModel(message.type, json);

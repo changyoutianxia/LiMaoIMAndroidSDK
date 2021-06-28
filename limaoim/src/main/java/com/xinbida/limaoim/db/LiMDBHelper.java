@@ -70,7 +70,7 @@ public class LiMDBHelper {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-            LimDBUpgrade.getInstance().onUpgrade(db);
+            LiMDBUpgrade.getInstance().onUpgrade(db);
         }
     }
 

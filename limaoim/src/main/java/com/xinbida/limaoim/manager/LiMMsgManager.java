@@ -772,6 +772,7 @@ public class LiMMsgManager extends LiMBaseManager {
 
 
     private void saveSyncChannelMSGs(List<LiMSyncRecent> list) {
+        if (list == null || list.size() == 0) return;
         List<LiMMsg> msgList = new ArrayList<>();
         for (int j = 0, len = list.size(); j < len; j++) {
             msgList.add(LiMSyncRecent2LiMMsg(list.get(j)));

@@ -18,15 +18,15 @@ import java.util.List;
  * 2020-07-31 09:36
  * 数据库升级管理
  */
-public class LimDBUpgrade {
-    private LimDBUpgrade() {
+public class LiMDBUpgrade {
+    private LiMDBUpgrade() {
     }
 
     static class LimDBUpgradeBinder {
-        final static LimDBUpgrade limDb = new LimDBUpgrade();
+        final static LiMDBUpgrade limDb = new LiMDBUpgrade();
     }
 
-    public static LimDBUpgrade getInstance() {
+    public static LiMDBUpgrade getInstance() {
         return LimDBUpgradeBinder.limDb;
     }
 

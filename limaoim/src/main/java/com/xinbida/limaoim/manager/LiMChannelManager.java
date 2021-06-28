@@ -51,7 +51,7 @@ public class LiMChannelManager extends LiMBaseManager {
 
     // 检查消息中的频道
     public void checkChannelInfo(LiMMsg mMsg) {
-        if (mMsg.type == LiMMsgContentType.LIM_INSIDE_MSG) return;
+        if (mMsg.type == LiMMsgContentType.LIMAO_INSIDE_MSG) return;
         LiMChannel channel = getLiMChannel(mMsg.channelID, mMsg.channelType);
         if (channel == null || TextUtils.isEmpty(channel.channelID)) {
             //更新频道信息
@@ -73,7 +73,7 @@ public class LiMChannelManager extends LiMBaseManager {
         }
 
         //内部消息不需要获取频道成员信息
-        if (mMsg.channelType == LiMChannelType.GROUP && mMsg.type != LiMMsgContentType.LIM_INSIDE_MSG && mMsg.type < 1000) {
+        if (mMsg.channelType == LiMChannelType.GROUP && mMsg.type != LiMMsgContentType.LIMAO_INSIDE_MSG && mMsg.type < 1000) {
             //群聊信息就获取某个人在该频道的信息
             LiMChannelMember liMChannelMember = LiMChannelMembersDbManager.getInstance().query(mMsg.channelID, LiMChannelType.GROUP, mMsg.fromUID);
             if (liMChannelMember == null) {
@@ -241,14 +241,12 @@ public class LiMChannelManager extends LiMBaseManager {
      * @param list 频道数据
      */
     public void addOrUpdateChannels(List<LiMChannel> list) {
-
+        if (list == null || list.size() == 0) return;
         try {
             LiMaoIMApplication.getInstance().getDbHelper().getDb()
                     .beginTransaction();
-            if (list.size() > 0) {
-                for (int i = 0, size = list.size(); i < size; i++) {
-                    LiMChannelDBManager.getInstance().insertOrUpdateChannel(list.get(i));
-                }
+            for (int i = 0, size = list.size(); i < size; i++) {
+                LiMChannelDBManager.getInstance().insertOrUpdateChannel(list.get(i));
             }
             LiMaoIMApplication.getInstance().getDbHelper().getDb()
                     .setTransactionSuccessful();
