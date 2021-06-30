@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 statusTv.setText("连接中...");
             } else if (code == LiMConnectStatus.noNetwork) {
                 statusTv.setText("无网络");
+            } else if (code == LiMConnectStatus.kicked) {
+                statusTv.setText("账号被其他设备登录");
             }
         });
         // 新消息监听
