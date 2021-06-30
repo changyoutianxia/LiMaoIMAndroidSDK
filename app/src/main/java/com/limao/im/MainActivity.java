@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xinbida.limaoim.LiMaoIM;
 import com.xinbida.limaoim.entity.LiMMsg;
-import com.xinbida.limaoim.interfaces.IGetIpAndPort;
-import com.xinbida.limaoim.interfaces.IGetSocketIpAndPortListener;
 import com.xinbida.limaoim.message.type.LiMChannelType;
 import com.xinbida.limaoim.message.type.LiMConnectStatus;
 import com.xinbida.limaoim.msgmodel.LiMTextContent;
@@ -56,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 LiMaoIM.getInstance().initIM(MainActivity.this, uid, token);
                 // 连接
                 LiMaoIM.getInstance().getLiMConnectionManager().connection();
-            }else {
-                Toast.makeText(this,"以上信息不能为空",Toast.LENGTH_LONG);
+            } else {
+                Toast.makeText(this, "以上信息不能为空", Toast.LENGTH_LONG).show();
             }
         });
         findViewById(R.id.sendBtn).setOnClickListener(v -> {
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         LiMaoIM.getInstance().getLiMConnectionManager().addOnGetIpAndPortListener(andPortListener -> {
             String ip = ipET.getText().toString();
             String port = portEt.getText().toString();
-            andPortListener.onGetSocketIpAndPort(ip,Integer.parseInt(port));
+            andPortListener.onGetSocketIpAndPort(ip, Integer.parseInt(port));
         });
     }
 
