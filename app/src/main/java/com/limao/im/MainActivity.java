@@ -3,6 +3,7 @@ package com.limao.im;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.xinbida.limaoim.LiMaoIM;
 import com.xinbida.limaoim.entity.LiMMsg;
+import com.xinbida.limaoim.interfaces.IGetIpAndPort;
+import com.xinbida.limaoim.interfaces.IGetSocketIpAndPortListener;
 import com.xinbida.limaoim.message.type.LiMChannelType;
 import com.xinbida.limaoim.message.type.LiMConnectStatus;
 import com.xinbida.limaoim.msgmodel.LiMTextContent;
@@ -18,7 +21,7 @@ import com.xinbida.limaoim.msgmodel.LiMTextContent;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    AppCompatEditText uidET, toUidET, tokenET, contentET;
+    AppCompatEditText uidET, ipET, portEt, toUidET, tokenET, contentET;
     MessageAdapter adapter;
     private TextView statusTv;
 
@@ -28,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recycleView);
+        ipET = findViewById(R.id.ipEt);
+        portEt = findViewById(R.id.portEt);
         uidET = findViewById(R.id.uidET);
         tokenET = findViewById(R.id.tokenET);
         contentET = findViewById(R.id.contentET);
+        toUidET = findViewById(R.id.toUidET);
         statusTv = findViewById(R.id.statusTv);
 
         adapter = new MessageAdapter();
@@ -43,11 +49,15 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.connectBtn).setOnClickListener(v -> {
             String uid = uidET.getText().toString();
             String token = tokenET.getText().toString();
-            if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(token)) {
+            String ip = ipET.getText().toString();
+            String port = portEt.getText().toString();
+            if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(token) && !TextUtils.isEmpty(ip) && !TextUtils.isEmpty(port)) {
                 // 初始化im
                 LiMaoIM.getInstance().initIM(MainActivity.this, uid, token);
                 // 连接
                 LiMaoIM.getInstance().getLiMConnectionManager().connection();
+            }else {
+                Toast.makeText(this,"以上信息不能为空",Toast.LENGTH_LONG);
             }
         });
         findViewById(R.id.sendBtn).setOnClickListener(v -> {
@@ -90,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
+        });
+        LiMaoIM.getInstance().getLiMConnectionManager().addOnGetIpAndPortListener(andPortListener -> {
+            String ip = ipET.getText().toString();
+            String port = portEt.getText().toString();
+            andPortListener.onGetSocketIpAndPort(ip,Integer.parseInt(port));
         });
     }
 

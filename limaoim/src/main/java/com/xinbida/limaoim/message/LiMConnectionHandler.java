@@ -234,7 +234,7 @@ public class LiMConnectionHandler {
            // LiMaoIMApplication.getInstance().connectStatus = ConnectStatus.waiting;
             LiMConnectionTimerHandler.getInstance().startAll();
             resendMsg();
-            LiMaoIM.getInstance().getLiMConnectionManager().setConnectionStatus(LiMConnectStatus.syncMsging);
+            LiMaoIM.getInstance().getLiMConnectionManager().setConnectionStatus(LiMConnectStatus.syncMsg);
             // 判断同步模式
             if (LiMaoIMApplication.getInstance().getSyncMsgMode() == LiMSyncMsgMode.WRITE) {
                 LiMaoIM.getInstance().getLiMMsgManager().setSyncOfflineMsg((isEnd, list) -> {

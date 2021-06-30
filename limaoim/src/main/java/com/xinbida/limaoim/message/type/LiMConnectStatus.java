@@ -12,7 +12,7 @@ public class LiMConnectStatus {
     //被踢（其他设备登录）
     public static final int kicked = 2;
     //同步消息中
-    public static final int syncMsging = 3;
+    public static final int syncMsg = 3;
     //连接中
     public static final int connecting = 4;
     //无网络
