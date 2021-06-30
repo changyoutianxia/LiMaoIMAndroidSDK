@@ -19,13 +19,11 @@ class MessageAdapter extends BaseQuickAdapter<UIMessageEntity, BaseViewHolder> {
         baseViewHolder.setText(R.id.contentTv, uiMessageEntity.liMMsg.baseContentMsgModel.getDisplayContent());
         if (uiMessageEntity.liMMsg.status == LiMSendMsgResult.send_loading) {
             baseViewHolder.setText(R.id.statusTv, "发送中");
-            baseViewHolder.setGone(R.id.statusTv, false);
         } else if (uiMessageEntity.liMMsg.status > LiMSendMsgResult.send_success) {
             baseViewHolder.setText(R.id.statusTv, "发送失败");
-            baseViewHolder.setGone(R.id.statusTv, false);
         } else {
-            baseViewHolder.setGone(R.id.statusTv, true);
             baseViewHolder.setText(R.id.statusTv, "");
         }
+        baseViewHolder.setGone(R.id.statusTv, uiMessageEntity.liMMsg.status == LiMSendMsgResult.send_success);
     }
 }
