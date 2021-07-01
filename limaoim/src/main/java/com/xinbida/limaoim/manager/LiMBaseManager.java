@@ -18,6 +18,9 @@ public class LiMBaseManager {
 
     // 回掉给UI是在主线程
     synchronized void runOnMainThread(ICheckThreadBack iCheckThreadBack) {
+        if (iCheckThreadBack == null) {
+            return;
+        }
         if (!isMainThread()) {
             if (mainHandler == null) mainHandler = new Handler(Looper.getMainLooper());
             mainHandler.post(iCheckThreadBack::onMainThread);

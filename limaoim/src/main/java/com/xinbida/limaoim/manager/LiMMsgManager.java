@@ -79,6 +79,10 @@ public class LiMMsgManager extends LiMBaseManager {
     private ConcurrentHashMap<String, ISendMsgCallBackListener> sendMsgCallBackListenerHashMap;
     // 删除消息监听
     private ConcurrentHashMap<String, IDeleteMsgListener> deleteMsgListenerMap;
+    // 发送消息ack监听
+    private ConcurrentHashMap<String, ISendACK> sendAckListenerMap;
+    // 新消息监听
+    private ConcurrentHashMap<String, INewMsgListener> newMsgListenerMap;
     // 同步消息回应
     private ISyncMsgReaction iSyncMsgReaction;
     // 上传文件附件
@@ -91,13 +95,10 @@ public class LiMMsgManager extends LiMBaseManager {
     private ISyncConversationChat iSyncConversationChat;
     // 消息存库拦截器
     private IMessageStoreBeforeIntercept messageStoreBeforeIntercept;
-    // 发送消息ack监听
-    private ConcurrentHashMap<String, ISendACK> sendAckListenerMap;
-    // 新消息监听
-    private ConcurrentHashMap<String, INewMsgListener> newMsgListenerMap;
     // 自定义消息model
     private List<java.lang.Class<? extends LiMMessageContent>> customContentMsgList;
 
+    // 初始化默认消息model
     public void initNormalMsg() {
         if (customContentMsgList == null) {
             customContentMsgList = new ArrayList<>();
@@ -225,6 +226,7 @@ public class LiMMsgManager extends LiMBaseManager {
             }
         }
         try {
+            // 注册的消息model必须提供无参的构造方法
             if (baseMsg != null) {
                 return baseMsg.newInstance().decodeMsg(jsonObject);
             }
@@ -371,6 +373,7 @@ public class LiMMsgManager extends LiMBaseManager {
             return messageSeq * 1000;
     }
 
+    // 设置消息回应
     public void setSyncMsgReaction(String channelID, byte channelType) {
         long maxSeq = LiMMsgDbManager.getInstance().getMaxSeqWithChannel(channelID, channelType);
         if (iSyncMsgReaction != null) {
@@ -423,13 +426,9 @@ public class LiMMsgManager extends LiMBaseManager {
         }
     }
 
-    private long clientSeq = 0;
 
     public synchronized long getClientSeq() {
-        if (clientSeq == 0)
-            clientSeq = LiMMsgDbManager.getInstance().getMaxMessageSeq();
-        clientSeq = clientSeq + 1;
-        return clientSeq;
+        return LiMMsgDbManager.getInstance().getMaxMessageSeq();
     }
 
     /**

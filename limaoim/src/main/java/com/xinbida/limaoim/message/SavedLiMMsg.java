@@ -7,7 +7,7 @@ import com.xinbida.limaoim.entity.LiMMsg;
  * 4/22/21 4:26 PM
  * 需要保存的消息
  */
-public class SavedLiMMsg {
+class SavedLiMMsg {
     public LiMMsg liMMsg;
     public int redDot;
 

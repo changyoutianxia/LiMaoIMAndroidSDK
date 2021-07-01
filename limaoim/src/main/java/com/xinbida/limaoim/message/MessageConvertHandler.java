@@ -468,7 +468,7 @@ class MessageConvertHandler {
                         jsonObject.put("mention", mentionJson);
                     }
                 }
-                //判断回复情况
+                // 被回复消息
                 if (liMMsg.baseContentMsgModel.reply != null) {
                     jsonObject.put("reply", liMMsg.baseContentMsgModel.reply.encodeMsg());
                 }
@@ -478,6 +478,7 @@ class MessageConvertHandler {
 
 
             LiMSendMsg liMSendMsg = new LiMSendMsg();
+            // 默认先设置clientSeq，因为有可能本条消息并不需要入库，UI上自己设置了clientSeq
             liMSendMsg.clientSeq = (int) liMMsg.clientSeq;
             liMSendMsg.sync_once = liMMsg.sync_once;
             liMSendMsg.no_persist = liMMsg.no_persist;
@@ -490,6 +491,7 @@ class MessageConvertHandler {
 
             long tempOrderSeq = LiMMsgDbManager.getInstance().getMaxOrderSeq(liMMsg.channelID, liMMsg.channelType);
             liMMsg.orderSeq = tempOrderSeq + 1;
+            // 需要存储的消息入库后更改消息的clientSeq
             if (!liMSendMsg.no_persist) {
                 liMSendMsg.clientSeq = (int) (liMMsg.clientSeq = (int) LiMMsgDbManager.getInstance().insertMsg(liMMsg));
                 if (liMMsg.clientSeq > 0)
