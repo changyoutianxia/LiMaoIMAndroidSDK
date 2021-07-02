@@ -19,7 +19,7 @@ import com.xinbida.limaoim.msgmodel.LiMTextContent;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    AppCompatEditText uidET, ipET, portEt, toUidET, tokenET, contentET;
+    AppCompatEditText uidET, ipET, portEt, toUidET, contentET;
     MessageAdapter adapter;
     private TextView statusTv;
 
@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         ipET = findViewById(R.id.ipEt);
         portEt = findViewById(R.id.portEt);
         uidET = findViewById(R.id.uidET);
-        tokenET = findViewById(R.id.tokenET);
         contentET = findViewById(R.id.contentET);
         toUidET = findViewById(R.id.toUidET);
         statusTv = findViewById(R.id.statusTv);
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     void onListener() {
         findViewById(R.id.connectBtn).setOnClickListener(v -> {
             String uid = uidET.getText().toString();
-            String token = tokenET.getText().toString();
+            String token = "123";
             String ip = ipET.getText().toString();
             String port = portEt.getText().toString();
             if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(token) && !TextUtils.isEmpty(ip) && !TextUtils.isEmpty(port)) {

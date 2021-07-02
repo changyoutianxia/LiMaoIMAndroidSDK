@@ -1,5 +1,7 @@
 package com.xinbida.limaoim.manager;
 
+import android.text.TextUtils;
+
 import com.xinbida.limaoim.db.LiMConversationDbManager;
 import com.xinbida.limaoim.db.LiMDBColumns;
 import com.xinbida.limaoim.db.LiMMsgDbManager;
@@ -9,8 +11,9 @@ import com.xinbida.limaoim.entity.LiMUIConversationMsg;
 import com.xinbida.limaoim.interfaces.IDeleteConversationMsg;
 import com.xinbida.limaoim.interfaces.IRefreshConversationMsg;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 5/21/21 12:12 PM
@@ -34,10 +37,10 @@ public class LiMConversationManager extends LiMBaseManager {
     }
 
     //监听刷新最近会话
-    private List<IRefreshConversationMsg> refreshMsgList;
+    private ConcurrentHashMap<String, IRefreshConversationMsg> refreshMsgList;
 
     //移除某个会话
-    private List<IDeleteConversationMsg> iDeleteMsgList;
+    private ConcurrentHashMap<String, IDeleteConversationMsg> iDeleteMsgList;
 
     /**
      * 修改某个会话红点数量
@@ -138,11 +141,16 @@ public class LiMConversationManager extends LiMBaseManager {
      *
      * @param listener 回调
      */
-    public void addOnRefreshMsg(IRefreshConversationMsg listener) {
+    public void addOnRefreshMsgListener(String key, IRefreshConversationMsg listener) {
+        if (TextUtils.isEmpty(key) || listener == null) return;
         if (refreshMsgList == null)
-            refreshMsgList = new ArrayList<>();
-        if (listener != null)
-            refreshMsgList.add(listener);
+            refreshMsgList = new ConcurrentHashMap<>();
+        refreshMsgList.put(key, listener);
+    }
+
+    public void removeOnRefreshMsgListener(String key) {
+        if (TextUtils.isEmpty(key) || refreshMsgList == null) return;
+        refreshMsgList.remove(key);
     }
 
     /**
@@ -151,27 +159,31 @@ public class LiMConversationManager extends LiMBaseManager {
     public void setOnRefreshMsg(LiMUIConversationMsg liMUIConversationMsg, boolean isEnd) {
         if (refreshMsgList != null && refreshMsgList.size() > 0) {
             runOnMainThread(() -> {
-                for (int i = 0, size = refreshMsgList.size(); i < size; i++) {
-                    if (refreshMsgList.get(i) != null)
-                        refreshMsgList.get(i).onRefreshConversationMsg(liMUIConversationMsg, isEnd);
+                for (Map.Entry<String, IRefreshConversationMsg> entry : refreshMsgList.entrySet()) {
+                    entry.getValue().onRefreshConversationMsg(liMUIConversationMsg, isEnd);
                 }
             });
         }
     }
 
     //监听删除最近会话监听
-    public void addOnDeleteMsgListener(IDeleteConversationMsg listener) {
-        if (iDeleteMsgList == null) iDeleteMsgList = new ArrayList<>();
-        iDeleteMsgList.add(listener);
+    public void addOnDeleteMsgListener(String key, IDeleteConversationMsg listener) {
+        if (TextUtils.isEmpty(key) || listener == null) return;
+        if (iDeleteMsgList == null) iDeleteMsgList = new ConcurrentHashMap<>();
+        iDeleteMsgList.put(key, listener);
+    }
+
+    public void removeOnDeleteMsgListener(String key) {
+        if (TextUtils.isEmpty(key) || iDeleteMsgList == null) return;
+        iDeleteMsgList.remove(key);
     }
 
     // 删除某个最近会话
     public void setDeleteMsg(String channelID, byte channelType) {
         if (iDeleteMsgList != null && iDeleteMsgList.size() > 0) {
             runOnMainThread(() -> {
-                for (int i = 0, size = iDeleteMsgList.size(); i < size; i++) {
-                    if (iDeleteMsgList.get(i) != null)
-                        iDeleteMsgList.get(i).onDelete(channelID, channelType);
+                for (Map.Entry<String, IDeleteConversationMsg> entry : iDeleteMsgList.entrySet()) {
+                    entry.getValue().onDelete(channelID, channelType);
                 }
             });
         }
