@@ -1,6 +1,7 @@
 package com.xinbida.limaoim.message;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.xinbida.limaoim.LiMaoIM;
 import com.xinbida.limaoim.LiMaoIMApplication;
@@ -448,6 +449,7 @@ public class LiMMessageHandler {
         }
 
         if (message.type == LiMMsgContentType.LIMAO_INSIDE_MSG) {
+            Log.e("收到cmd消息",json.toString()+"_"+message.channelID);
             LiMCMDManager.getInstance().handleCMD(json, message.channelID, message.channelType);
         }
         message.baseContentMsgModel = LiMaoIM.getInstance().getLiMMsgManager().getMsgContentModel(message.type, json);

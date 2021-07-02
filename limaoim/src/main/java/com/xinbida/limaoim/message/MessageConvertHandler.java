@@ -388,7 +388,7 @@ class MessageConvertHandler {
                 if (read == -1) return liMRecvMsg;
                 liMRecvMsg.fromUID = LiMTypeUtils.getInstance().bytesToString(fromUIDByte);
                 //消息内容
-                // // 消息ID长度8 + 消息序列号长度4 + 消息时间长度4 + setting1 + (客户端ID长度+字符串标示长度2) （频道ID长度+字符串标示长度2） + 频道类型长度1 + （发送者uid长度+字符串标示长度2）
+                // 消息ID长度8 + 消息序列号长度4 + 消息时间长度4 + setting1 + (客户端ID长度+字符串标示长度2) （频道ID长度+字符串标示长度2） + 频道类型长度1 + （发送者uid长度+字符串标示长度2）
                 byte[] payload;
                 if (LiMaoIMApplication.getInstance().protocolVersion > 2)
                     payload = new byte[remainingLength - (8 + 4 + 2 + 1 + msgKeyLength + 4 + (clientMsgNoLength + 2) + (channelIdLength + 2) + 1 + (2 + fromUIDLength))];

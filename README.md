@@ -3,6 +3,21 @@
 
 ## 快速入门
 
+**集成**
+在主程序的build.gradle文件中添加：
+
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+然后在app model中导入
+```
+implementation 'com.github.lim-team:LiMaoIMAndroidSDK:1.0.0'
+```
 ***初始化sdk***
 ```
 LiMaoIM.getInstance().initIM(context, uid, token);
