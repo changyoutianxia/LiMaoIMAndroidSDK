@@ -796,7 +796,7 @@ public class LiMMsgManager extends LiMBaseManager {
 
     }
 
-    public void addSendMsgAckListener(String key, ISendACK iSendACKListener) {
+    public void addOnSendMsgAckListener(String key, ISendACK iSendACKListener) {
         if (iSendACKListener == null || TextUtils.isEmpty(key)) return;
         if (sendAckListenerMap == null) sendAckListenerMap = new ConcurrentHashMap<>();
         sendAckListenerMap.put(key, iSendACKListener);

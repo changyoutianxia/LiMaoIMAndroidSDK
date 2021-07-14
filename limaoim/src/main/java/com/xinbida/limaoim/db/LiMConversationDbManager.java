@@ -344,13 +344,13 @@ public class LiMConversationDbManager {
         int b = LiMaoIMApplication.getInstance().getDbHelper()
                 .update(LiMDBTables.chat_msg_conversation_tab, updateKey, updateValue, where, whereValue);
         LiMLoggerUtils.getInstance().e("修改消息状态：" + b);
-        if (b > 0) {
-            LiMConversationMsg msg = queryMsgByClientSeq(client_seq);
-            if (msg != null) {
-                Log.e("刷新最近会话", "update");
-                refreshMsg(msg, null);
-            }
-        }
+//        if (b > 0) {
+//            LiMConversationMsg msg = queryMsgByClientSeq(client_seq);
+//            if (msg != null) {
+//                Log.e("刷新最近会话", "update");
+//                refreshMsg(msg, null);
+//            }
+//        }
     }
 
     public synchronized boolean saveOrUpdateTopMsg(LiMMsg liMMsg, boolean isAddNum, boolean isRefreshUI) {

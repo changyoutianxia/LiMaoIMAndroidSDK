@@ -242,6 +242,10 @@ public class LiMChannelManager extends LiMBaseManager {
      */
     public void addOrUpdateChannels(List<LiMChannel> list) {
         if (list == null || list.size() == 0) return;
+        // 先修改内存数据
+        for (int i = 0, size = list.size(); i < size; i++) {
+            updateChannel(list.get(i));
+        }
         try {
             LiMaoIMApplication.getInstance().getDbHelper().getDb()
                     .beginTransaction();

@@ -220,7 +220,7 @@ public class LiMConnectionHandler {
     }
 
     //将要发送的消息添加到队列
-    private void addSendingMsg(LiMMsg sendingMsg) {
+    private synchronized void addSendingMsg(LiMMsg sendingMsg) {
         sendingMsgHashMap.put(sendingMsg.clientSeq, new LiMSendingMsg(1, sendingMsg));
     }
 
@@ -288,7 +288,7 @@ public class LiMConnectionHandler {
 
 
     //检测正在发送的消息
-    void checkSendingMsg() {
+   synchronized void checkSendingMsg() {
         if (sendingMsgHashMap.size() > 0) {
             for (Iterator<Map.Entry<Long, LiMSendingMsg>> it = sendingMsgHashMap.entrySet().iterator(); it.hasNext(); ) {
                 Map.Entry<Long, LiMSendingMsg> item = it.next();
